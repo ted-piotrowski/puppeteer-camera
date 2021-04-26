@@ -1,19 +1,21 @@
-# Puppetcam
+# Puppeteer Camera
 
 ### How it works
 
-Docker container run an Express webserver. An HTTP /start request open up a headless Chromium browser with chrome extension installed.
-The chrome extension records the screen and audio output of any page Chromium navigates to and streams the recording data to an S3 bucket.
+- Docker container starts an Express webserver
+- An HTTP `/start` request launches a headless Chromium browser with screen capture Chrome extension installed
+- The Chrome extension records the screen and audio output of any page
+- Data is streamed directly to S3 bucket in `.webm` format
 
 ### Run 
 
-`.env` file available in 1Password. It should contain the following:
+Add .env
 
 ```
 AWS_REGION=us-west-2
 AWS_ACCESS_KEY_ID=XXX
 AWS_SECRET_ACCESS_KEY=XXX
-AWS_PUPPETCAM_BUCKET_NAME=hopps-private
+AWS_PUPPETCAM_BUCKET_NAME=bucket-name
 ```
 
 ```sh
