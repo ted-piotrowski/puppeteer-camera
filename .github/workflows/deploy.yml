@@ -1,0 +1,52 @@
+name: Deploy production
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: bahmutov/npm-install@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install and build
+      run: |
+        yarn install
+        yarn run build
+      env:
+        CI: true
+    - name: Deploy to AWS
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USERNAME }}
+        PORT: ${{ secrets.SSH_PORT }}
+        KEY: ${{ secrets.SSH_KEY }}
+      with:
+        source: "dist,package.json,yarn.lock,config,Dockerfile,docker-compose.yml,docker-compose.prod.yml"
+        target: "puppetcam"
+    - name: Docker compose up
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd puppetcam 
+          sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+          sudo docker-compose down
+          sudo docker volume rm server_node_modules
+          sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+          sudo docker image prune -f

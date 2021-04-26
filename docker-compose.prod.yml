@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+    puppetcam: 
+        command: yarn prod
+        environment:
+            NODE_ENV: 'production'

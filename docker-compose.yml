@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+    puppetcam:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: puppetcam
+        container_name: puppetcam 
+        restart: unless-stopped
+        env_file: .env
+        ports: 
+            - "3333:3333"
+        volumes:     
+            - .:/usr/src/app
+            - node_modules:/usr/src/app/node_modules
+            - ./Downloads:/root/Downloads
+        networks:
+            - app-network  
+        command: yarn start
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    node_modules:
+    puppetcam:

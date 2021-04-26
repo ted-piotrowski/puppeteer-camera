@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "target": "es2017",
+        "moduleResolution": "node",
+    },
+    "exclude": [
+        "node_modules",
+    ]
+}
