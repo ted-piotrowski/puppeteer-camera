@@ -36,3 +36,12 @@ curl -X POST -H "Content-Type: application/json" -d '{"id":"abc123","url":"https
 ```sh
 curl -X POST -H "Content-Type: application/json" -d '{"id":"abc123"}' localhost:3333/stop
 ```
+
+### Record Twilio Video
+
+```sh
+curl -X POST -H "Content-Type: application/json" -d '{"id":"abc123","url":"http://localhost:3333/?roomName=XXX&twilioToken=XXX"}' localhost:3333/start
+```
+
+See: [index.tsx](https://github.com/ted-piotrowski/puppeteer-camera/blob/main/src/public/index.tsx)
+
