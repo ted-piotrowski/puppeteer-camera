@@ -45,3 +45,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"id":"abc123","url":"http:
 
 See: [index.tsx](https://github.com/ted-piotrowski/puppeteer-camera/blob/main/src/public/index.tsx)
 
+### Inspiration
+
+See: [https://github.com/muralikg/puppetcam](https://github.com/muralikg/puppetcam)
+
