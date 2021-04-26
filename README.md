@@ -20,7 +20,6 @@ AWS_PUPPETCAM_BUCKET_NAME=bucket-name
 
 ```sh
 docker-compose up --build
-docker-compose down -v
 ```
 
 ### Start recording a url
